@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.starsmobi.mapper.GoodsEsMapper">
+    <resultMap id="ResultMap" type="com.starsmobi.domain.GoodsEs">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="barcode" property="barcode" jdbcType="VARCHAR"/>
+        <result column="mnemonic_code" property="mnemonicCode" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="DECIMAL"/>
+        <result column="cost_price" property="costPrice" jdbcType="DECIMAL"/>
+        <result column="original_price" property="originalPrice" jdbcType="DECIMAL"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="goods_type_id" property="goodsTypeId" jdbcType="VARCHAR"/>
+        <result column="goods_category_id" property="goodsCategoryId" jdbcType="VARCHAR"/>
+        <result column="provider_id" property="providerId" jdbcType="VARCHAR"/>
+        <result column="is_disable" property="disable" jdbcType="TINYINT"/>
+        <result column="thumbnail" property="thumbnail" jdbcType="VARCHAR"/>
+        <result column="verify_status" property="verifyStatus" jdbcType="INTEGER"/>
+        <result column="has_deposit" property="hasDeposit" jdbcType="TINYINT"/>
+        <result column="is_invalid" property="invalid" jdbcType="TINYINT"/>
+        <result column="pay_type" property="payType" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID, NAME, CODE, BARCODE, MNEMONIC_CODE, PRICE, ORIGINAL_PRICE,COST_PRICE, `INDEX`, STATUS, PRODUCTION_BATCH,
+        PRODUCTION_DATE, DEFAULT_PRICKLE,GOODS_CATEGORY_ID, GOODS_TYPE_ID,GOODS_ATTR_GROUP_ID, PROVIDER_ID, SHELF_LIFE,
+        FREIGHT_TEMPLATE, SALE_TIME, IS_MERGE_STOCK, CREATE_TIME, IS_DISABLE,
+        THUMBNAIL,WEIGHT,USER_AGREEMENT_TITLE,DEFAULT_UNIT,HAS_DEPOSIT,VERIFY_STATUS,INVALID_DATE,IS_INVALID,PAY_TYPE,UPDATE_TIME,UPDATOR
+    </sql>
+
+    <select id="listGoods" resultMap="ResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM goods WHERE 1= 1 AND is_disable = 0 AND is_invalid = 0 AND `status` = 2
+    </select>
+
+    <resultMap id="ResultAllMap" type="com.starsmobi.domain.GoodsEs">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="barcode" property="barcode" jdbcType="VARCHAR"/>
+        <result column="mnemonic_code" property="mnemonicCode" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="DECIMAL"/>
+        <result column="cost_price" property="costPrice" jdbcType="DECIMAL"/>
+        <result column="original_price" property="originalPrice" jdbcType="DECIMAL"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="goods_type_id" property="goodsTypeId" jdbcType="VARCHAR"/>
+        <result column="goods_category_id" property="goodsCategoryId" jdbcType="VARCHAR"/>
+        <result column="provider_id" property="providerId" jdbcType="VARCHAR"/>
+        <result column="is_disable" property="disable" jdbcType="TINYINT"/>
+        <result column="verify_status" property="verifyStatus" jdbcType="INTEGER"/>
+        <result column="has_deposit" property="hasDeposit" jdbcType="TINYINT"/>
+        <result column="is_invalid" property="invalid" jdbcType="TINYINT"/>
+        <result column="pay_type" property="payType" jdbcType="INTEGER"/>
+        <result column="thumbnail" property="thumbnail" jdbcType="VARCHAR"/>
+        <result column="providerName" property="providerName" jdbcType="VARCHAR"/>
+        <result column="goodsTypeName" property="goodsTypeName" jdbcType="VARCHAR"/>
+        <collection property="regions" column="provider_id"
+                    ofType="com.happylifeplat.service.search.entity.ProviderRegionEs"
+                    select="listByProviderId" />
+    </resultMap>
+
+
+    <select id="listStores" resultType="com.starsmobi.domain.StoreEs" parameterType="java.lang.String">
+        SELECT sg.store_id AS storeId FROM store_goods sg
+        LEFT JOIN stores s ON sg.store_id=s.id
+        WHERE sg.goods_status != 0
+        AND s.is_disable = 0
+        AND s.is_on_business = 1
+        AND sg.goods_id = #{goodId}
+    </select>
+
+</mapper>
