@@ -1,7 +1,7 @@
 package com.starsmobi.mapper;
 
 import com.starsmobi.domain.GoodsEs;
-import com.starsmobi.domain.StoreEs;
+import com.starsmobi.domain.StoresEs;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,6 +12,6 @@ public interface GoodsEsMapper {
 
     List<GoodsEs> listGoods();
 
-    List<StoreEs> listStores(@Param("goodId") String goodId);
+    List<StoresEs> listStores(@Param("goodId") String goodId);
 
 }

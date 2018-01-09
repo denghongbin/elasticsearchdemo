@@ -13,8 +13,9 @@
           primary="true">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://edjyun.com:3306/wgj_service?useUnicode=true&amp;autoReconnect=true&amp;allowMultiQueries=true&amp;useSSL=true"/>
-        <property name="username" value="test"/>
-        <property name="password" value="test@wgj"/>
+        <property name="username" value="wgj_adqm"/>
+        <property name="password" value="h82wa3ia6mEyVI8CUsH8aOweLaaxrpixR98s2RtLVziDmJsbq6xLHxvibvrwJySOF7s0/QkxO3Sp8gQRNmnvYg=="/>
+        <property name="connectionProperties" value="config.decrypt=true;config.decrypt.key='MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJUR6GfyiMDxoy1JfRzw79SXwojoiGLXFzWLpACjEAgJB68I9CKhue4U6n5C4R4YbElfyJXGI6dds8+HwoQ4dF8CAwEAAQ=='"/>
         <property name="dbType" value="com.alibaba.druid.pool.DruidDataSource"/>
 
         <!-- 配置连接池初始化大小、最大、最小、最大等待时间 -->

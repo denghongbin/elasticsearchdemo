@@ -1,8 +1,7 @@
 package com.starsmobi.service;
 
 import com.starsmobi.domain.GoodsEs;
-import com.starsmobi.domain.StoreEs;
-import org.apache.ibatis.annotations.Param;
+import com.starsmobi.domain.StoresEs;
 
 import java.util.List;
 
@@ -13,5 +12,5 @@ public interface IGoodService {
 
     public List<GoodsEs> listGoods();
 
-    public List<StoreEs> listStores(String goodId);
+    public List<StoresEs> listStores(String goodId);
 }

@@ -62,7 +62,7 @@
     </resultMap>
 
 
-    <select id="listStores" resultType="com.starsmobi.domain.StoreEs" parameterType="java.lang.String">
+    <select id="listStores" resultType="com.starsmobi.domain.StoresEs" parameterType="java.lang.String">
         SELECT sg.store_id AS storeId FROM store_goods sg
         LEFT JOIN stores s ON sg.store_id=s.id
         WHERE sg.goods_status != 0

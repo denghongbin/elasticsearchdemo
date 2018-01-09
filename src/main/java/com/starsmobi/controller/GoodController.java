@@ -8,6 +8,7 @@ import com.starsmobi.domain.result.EntityResult;
 import com.starsmobi.domain.result.SearchResult;
 import com.starsmobi.elasticsearchclient.ElasticsearchClient;
 import com.starsmobi.service.IGoodService;
+import com.starsmobi.service.IStoresService;
 import io.swagger.annotations.ApiOperation;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchException;
@@ -39,11 +40,26 @@ public class GoodController {
     @Autowired
     private IGoodService goodService;
 
+    @Autowired
+    private IStoresService storesService;
+
     @ApiOperation(value = "为商品创建索引")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public String createGoodIndex(){
         List<GoodsEs> goodslist = goodService.listGoods();
+        boolean b = ElasticsearchClient.bulkGoodIndex(goodslist);
+        if (b){
+            return "创建成功！";
+        }
+        return "创建失败！";
+    }
+
+    @ApiOperation(value = "为店铺创建索引")
+    @RequestMapping(value = "/createStoresES", method = RequestMethod.POST)
+    @ResponseBody
+    public String createStoresES(){
+        List<GoodsEs> goodslist = storesService.listStores();
         boolean b = ElasticsearchClient.bulkGoodIndex(goodslist);
         if (b){
             return "创建成功！";

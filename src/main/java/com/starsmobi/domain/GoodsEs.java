@@ -1,7 +1,5 @@
 package com.starsmobi.domain;
 
-import org.elasticsearch.common.inject.internal.ToStringBuilder;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -129,7 +127,7 @@ public class GoodsEs implements Serializable{
     /**
      * 店铺信息
      */
-    private List<StoreEs> stores;
+    private List<StoresEs> stores;
 
     public String getId() {
         return id;
@@ -291,11 +289,11 @@ public class GoodsEs implements Serializable{
         this.providerName = providerName;
     }
 
-    public List<StoreEs> getStores() {
+    public List<StoresEs> getStores() {
         return stores;
     }
 
-    public void setStores(List<StoreEs> stores) {
+    public void setStores(List<StoresEs> stores) {
         this.stores = stores;
     }
 

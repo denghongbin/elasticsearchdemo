@@ -1,8 +1,7 @@
 package com.starsmobi.serviceImp;
 
 import com.starsmobi.domain.GoodsEs;
-import com.starsmobi.domain.StoreEs;
-import com.starsmobi.elasticsearchclient.ElasticsearchClient;
+import com.starsmobi.domain.StoresEs;
 import com.starsmobi.mapper.GoodsEsMapper;
 import com.starsmobi.service.IGoodService;
 import org.slf4j.Logger;
@@ -28,7 +27,7 @@ public class GoodServiceImp implements IGoodService{
 
         List<GoodsEs> goods = goodsEsMapper.listGoods();
         goods.forEach(g->{
-            List<StoreEs> ss = goodsEsMapper.listStores(g.getId());
+            List<StoresEs> ss = goodsEsMapper.listStores(g.getId());
             LOGGER.info("+++++++++++++++++++"+ss.toString());
             g.setStores(ss);
         });
@@ -37,7 +36,7 @@ public class GoodServiceImp implements IGoodService{
     }
 
     @Override
-    public List<StoreEs> listStores(String goodId) {
+    public List<StoresEs> listStores(String goodId) {
         return null;
     }
 }
