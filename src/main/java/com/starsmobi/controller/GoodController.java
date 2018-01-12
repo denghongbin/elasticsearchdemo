@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.starsmobi.domain.GoodsEs;
 import com.starsmobi.domain.SearchEntity;
 import com.starsmobi.domain.SearchRequest;
+import com.starsmobi.domain.StoresEs;
 import com.starsmobi.domain.result.EntityResult;
 import com.starsmobi.domain.result.SearchResult;
 import com.starsmobi.elasticsearchclient.ElasticsearchClient;
@@ -43,7 +44,7 @@ public class GoodController {
     @Autowired
     private IStoresService storesService;
 
-    @ApiOperation(value = "为商品创建索引")
+    @ApiOperation(value = "商品创建索引")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public String createGoodIndex(){
@@ -55,17 +56,45 @@ public class GoodController {
         return "创建失败！";
     }
 
-    @ApiOperation(value = "为店铺创建索引")
-    @RequestMapping(value = "/createStoresES", method = RequestMethod.POST)
+    @ApiOperation(value = "店铺创建空索引")
+    @RequestMapping(value = "/createStores", method = RequestMethod.POST)
     @ResponseBody
     public String createStoresES(){
-        List<GoodsEs> goodslist = storesService.listStores();
-        boolean b = ElasticsearchClient.bulkGoodIndex(goodslist);
+        boolean b = ElasticsearchClient.bulkStoresIndex();
         if (b){
-            return "创建成功！";
+            return "成功！";
         }
-        return "创建失败！";
+        return "失败！";
     }
+
+    @ApiOperation(value = "店铺数据创建索引")
+    @RequestMapping(value = "/importStoresES", method = RequestMethod.POST)
+    @ResponseBody
+    public String importStoresES(){
+        List<StoresEs> StoresEs = storesService.listStores();
+        boolean b = ElasticsearchClient.importDate(StoresEs);
+        if (b){
+            return "成功！";
+        }
+        return "失败！";
+    }
+
+
+    @ApiOperation(value = "搜索店铺数据")
+    @RequestMapping(value = "/searchStores", method = RequestMethod.POST)
+    @ResponseBody
+    public SearchResponse searchStores(double[] coordinate){
+
+        //经纬度位置置换
+        double[] coordinatenew = new double[2];
+        coordinatenew[0]=coordinate[1];
+        coordinatenew[1]=coordinate[0];
+
+        SearchResponse searchResponse = ElasticsearchClient.searchStores(coordinatenew);
+
+        return searchResponse;
+    }
+
 
     @ApiOperation(value = "搜索商品")
     @RequestMapping(value = "/get", method = RequestMethod.POST)

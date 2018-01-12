@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.starsmobi.mapper.StoresEsMapper">
 
-    <select id="listStores" resultType="com.starsmobi.domain.StoresEs" parameterType="java.lang.String">
+    <select id="listStores" resultType="com.starsmobi.domain.StoresDto" parameterType="java.lang.String">
         SELECT
           ssa.id,
           ssa.store_id AS storesId,
@@ -12,5 +12,7 @@
         FROM store_service_area ssa
         WHERE 1=1
         and ssa.is_disable = 0
+        AND ssa.`name` LIKE "%广东省深圳%"
+        LIMIT 0,2
     </select>
 </mapper>

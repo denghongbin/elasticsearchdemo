@@ -1,24 +1,14 @@
 package com.starsmobi.domain;
 
-import com.alibaba.fastjson.JSONArray;
-
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * <p>Description: .</p>
- * <p>Company: 深圳市旺生活互联网科技有限公司</p>
- * <p>Copyright: 2015-2017 happylifeplat.com All Rights Reserved</p>
- *  存放在es里的商品实体类
- * @author vincent
- * @version 1.0
- * @date 2017/7/31 9:46
- * @since JDK 1.8
+ * Created by Administrator on 2018-01-10.
  */
-public class StoresEs implements Serializable{
+public class StoresDto implements Serializable{
 
-    private static final long serialVersionUID = 1543164075681892367L;
-
+    private static final long serialVersionUID = -521405814999169284L;
 
     private String id;
 
@@ -26,7 +16,7 @@ public class StoresEs implements Serializable{
 
     private String name;
 
-    private Object[] location;
+    private String polygon;
 
     private Date createTime;
 
@@ -58,12 +48,12 @@ public class StoresEs implements Serializable{
         this.name = name;
     }
 
-    public Object[] getLocation() {
-        return location;
+    public String getPolygon() {
+        return polygon;
     }
 
-    public void setLocation(Object[] location) {
-        this.location = location;
+    public void setPolygon(String polygon) {
+        this.polygon = polygon;
     }
 
     public Date getCreateTime() {
@@ -88,9 +78,5 @@ public class StoresEs implements Serializable{
 
     public void setIsDisable(int isDisable) {
         this.isDisable = isDisable;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
     }
 }
